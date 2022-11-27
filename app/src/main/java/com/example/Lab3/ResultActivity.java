@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -31,32 +30,21 @@ public class ResultActivity extends AppCompatActivity {
         main_btn = (Button) findViewById(R.id.main_btn);
         exit_btn = (Button) findViewById(R.id.exit_btn);
         play_btn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-                        finish();
-                        startActivity(intent);
-                    }
+                view -> {
+                    Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+                    finish();
+                    startActivity(intent);
                 }
         );
         main_btn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(ResultActivity.this, StartActivity.class);
-                        finish();
-                        startActivity(intent);
-                    }
+                view -> {
+                    Intent intent = new Intent(ResultActivity.this, StartActivity.class);
+                    finish();
+                    startActivity(intent);
                 }
         );
         exit_btn.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                }
+                view -> finish()
         );
     }
 
