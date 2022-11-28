@@ -2,6 +2,7 @@ package com.example.Lab3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -58,4 +59,12 @@ public class ResultActivity extends AppCompatActivity {
                 }
         );
     }
+
+    static public Intent createIntent(Context context, CharSequence points){
+        Intent i = new Intent(context, ResultActivity.class);
+        i.putExtra("result", points);
+        return i;
+    }
+
+
 }

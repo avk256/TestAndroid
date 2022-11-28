@@ -38,7 +38,10 @@ public class StartActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        finish();
+                        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                        //finish();
+                        startActivity(intent);
+
                     }
                 }
         );
