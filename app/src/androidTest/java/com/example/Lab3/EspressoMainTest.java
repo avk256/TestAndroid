@@ -9,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -38,12 +39,12 @@ public class EspressoMainTest {
 
 
     @Test
-    public void checkTimeVisible() {
+    public void IsTimerOn() {
         onView(withId(R.id.time)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void checkTestModeButtonYes(){
+    public void IsYesButtonVisible(){
         for (int i=0; i<10; i++){
             onView(withId(R.id.yes_btn)).perform(click());
         }
@@ -52,7 +53,7 @@ public class EspressoMainTest {
     }
 
     @Test
-    public void checkTestModeButtonNo(){
+    public void IsNoButtonVisible(){
         onView(withId(R.id.no_btn)).check(matches(isClickable()));
 
         for (int i=0; i<10; i++){
@@ -62,4 +63,33 @@ public class EspressoMainTest {
 
     }
 
+    @Test
+    public void IsQuestionVisible() {
+        onView(withId(R.id.roolsView))
+                .check(matches(isDisplayed()))
+                .check(matches(withText("Чи співпадає назва кольору ліворуч з кольором текста праворуч?")));
+    }
+
+    @Test
+    public void IsGameEndsInMinute() throws InterruptedException {
+        int clickCount = 5;
+        for (int i = 0; i < clickCount; i++){
+            onView(withId(R.id.yes_btn)).perform(click());
+        }
+        onView(withId(R.id.points)).check(matches(withText("5")));
+        Thread.sleep(55 * 1000);
+        int TIMEOUT = 10 * 1000;
+        int CONDITION_CHECK_INTERVAL = 100;
+
+        long startTime = System.currentTimeMillis();
+        try {
+            while(System.currentTimeMillis() - startTime < TIMEOUT) {
+                onView(withId(R.id.roolsView)).check(matches(isDisplayed()));
+                Thread.sleep(CONDITION_CHECK_INTERVAL);
+            }
+        } catch (NoMatchingViewException e){
+            onView(withId(R.id.result_string)).check(matches(withText("Ваш результат:")));
+            onView(withId(R.id.result)).check(matches(withText("5")));
+        }
+    }
 }

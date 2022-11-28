@@ -51,11 +51,11 @@ public class LoginTest {
             new ActivityScenarioRule<>(LoginActivity.class);
 
     @Test
-    public void A_checkEmailEditVisible() {
+    public void IsEmailFieldVisible() {
         onView(withId(R.id.username)).check(matches(isDisplayed()));
     }
     @Test
-    public void B_checkPasswordEditVisible() {
+    public void IsPasswordFieldVisible() {
         onView(withId(R.id.password)).check(matches(isDisplayed()));
     }
 
@@ -66,7 +66,7 @@ public class LoginTest {
     }
 
     @Test
-    public void D_testLoginWithCorrectCredentials() throws InterruptedException {
+    public void TryRightLogin() throws InterruptedException {
         onView(withId(R.id.username)).perform(new TypeTextAction("test@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.password)).perform(new TypeTextAction("123456"), closeSoftKeyboard());
 //        onView(withId(R.id.password)).perform(closeSoftKeyboard());
@@ -85,18 +85,8 @@ public class LoginTest {
         Intents.release();
     }
 
-//    @Before
-//    public void setUp() {
-//        activityRule.getScenario().onActivity(new ActivityScenario.ActivityAction<LoginActivity>() {
-//            @Override
-//            public void perform(LoginActivity activity) {
-//                decorView = activity.getWindow().getDecorView();
-//            }
-//        });
-//    }
-
     @Test
-    public void C_testLoginWithWrongCredentials() throws InterruptedException {
+    public void TryWrongLogin() throws InterruptedException {
         onView(withId(R.id.username)).perform(new TypeTextAction("test1@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.password)).perform(new TypeTextAction("123456"), closeSoftKeyboard());
         Thread.sleep(250);
